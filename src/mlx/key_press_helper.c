@@ -28,9 +28,9 @@ void	set_data_rc(t_data *data, int x)
 	data->map_y = (int)data->pos_y;
 	//printf("map_y=%d\n", data->map_y);
 	//printf("****************************************************************\n");
-	data->delta_dist_x = fabs(1 / data->raydir_x);
-	data->delta_dist_y = fabs(1 / data->raydir_y);
-	data->hit = 0;
+	data->delta_dist_x = fabs(1 / data->raydir_x); // ışının x noktasından diğer x noktsına bir birim mesafesi
+	data->delta_dist_y = fabs(1 / data->raydir_y); // ışının y noktasından diğer y noktsına bir birim mesafesi
+	data->hit = 0; // ışının nesnelere çarpıp çarpmaması tespit edilir.
 }
 
 void	key_press_helper3(t_data *data, int key)

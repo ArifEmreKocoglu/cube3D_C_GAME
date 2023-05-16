@@ -42,8 +42,8 @@ void	print_map5(t_data *data, int x)
 
 void	print_map4(t_data *data)
 {
-	data->line_height = (int)(WIN_HEIGHT / data->perp_wall_dist);
-	data->draw_start = -data->line_height / 2 + WIN_HEIGHT / 2;
+	data->line_height = (int)(WIN_HEIGHT / data->perp_wall_dist); // basılacak resmin yüksekliği 
+	data->draw_start = -data->line_height / 2 + WIN_HEIGHT / 2; // geçerli şeriti doldurmak için en düşük ve en yüksek pixeli hesapla
 	if (data->draw_start < 0)
 		data->draw_start = 0;
 	data->draw_end = data->line_height / 2 + WIN_HEIGHT / 2;
@@ -68,38 +68,38 @@ void	print_map4(t_data *data)
 
 void	print_map3(t_data *data)
 {
-	while (data->hit == 0)
+	while (data->hit == 0) // duvara çarpmadıysa
 	{
 		if (data->side_dist_x < data->side_dist_y)
 		{
-			data->side_dist_x += data->delta_dist_x;
-			data->map_x += data->step_x;
-			data->side = 0;
+			data->side_dist_x += data->delta_dist_x; // duvara çarpmadığı sürece ışının geçtiği yerleri topluyoruz.
+			data->map_x += data->step_x; // duvara çarpmadıkça ışının konumunu ekliyoruz.(ışının ilerlediği yöne göre "+" "-")
+			data->side = 0; // ışın x taraflı duvara çarptı.
 		}
 		else
 		{
 			data->side_dist_y += data->delta_dist_y;
 			data->map_y += data->step_y;
-			data->side = 1;
+			data->side = 1; // ışın y taraflı duvara çarptı.
 		}
-		if (data->map3[data->map_x][data->map_y] == 1)
+		if (data->map3[data->map_x][data->map_y] == 1) // bulunduğu yer duvar ise 1 yap çık.
 			data->hit = 1;
 	}
 	if (data->side == 0)
-		data->perp_wall_dist = (data->map_x - data->pos_x \
-			+ (1 - data->step_x) / 2) / data->raydir_x;
+		data->perp_wall_dist = (data->map_x - data->pos_x \   
+			+ (1 - data->step_x) / 2) / data->raydir_x;   // x için ;burada duvar ile oyuncu arasındaki dik uzunluğu hesaplıyor.
 	else
 		data->perp_wall_dist = (data->map_y - data->pos_y \
-			+ (1 - data->step_y) / 2) / data->raydir_y;
+			+ (1 - data->step_y) / 2) / data->raydir_y;  // y için ;burada duvar ile oyuncu arasındaki dik uzunluğu hesaplıyor.
 }
 
 void	print_map2(t_data *data)
 {
-	if (data->raydir_x < 0)
+	if (data->raydir_x < 0) // ışın negatif yönde ilerliyor.
 	{
-		data->step_x = -1;
+		data->step_x = -1; // ışın negatif yönde.
 		data->side_dist_x = (data->pos_x \
-			- data->map_x) * data->delta_dist_x;
+			- data->map_x) * data->delta_dist_x; // (data->side_dist_x) ışının x gördüğünde çarptığı ilk nokta.
 	}
 	else
 	{
